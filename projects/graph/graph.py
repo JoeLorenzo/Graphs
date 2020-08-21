@@ -13,33 +13,89 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise ValueError("vertex does not exist")
+
+    def add_undirected_edge(self, v1, v2):
+        """
+        Add a undirected edge to the graph.
+        """
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+            self.vertices[v2].add(v1)
+        else:
+            raise ValueError("vertex does not exist")
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        if vertex_id in self.vertices:
+            return self.vertices[vertex_id]
+        else:
+            raise ValueError("vertex does not exist")
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # create queue 
+        q = Queue() 
+ 
+        # enqueue the starting vertex
+        q.enqueue(starting_vertex)
+        # create a set to store visited vertices
+        visited = set()
+        # while the queue is not emptey...
+        while q.size() > 0:
+            # dequeue the frist vertex
+            v = q.dequeue()
+            # check if it's been visited 
+            # if it has not been visited
+            if v not in visited:
+                # mark it as visited
+                print(v) 
+                visited.add(v)
+                # enqueue all its neighbors
+                for neighbor in self.get_neighbors(v):
+                    q.enqueue(neighbor)
+
+
 
     def dft(self, starting_vertex):
         """
-        Print each vertex in depth-first order
+           Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # create a stack
+        s = Stack()
+        # push the starting vertex
+        s.push(starting_vertex)
+        # create a set to store the visited vertices
+        visited = set()
+        # while the stack is not empty...
+        while s.size() > 0:
+            # pop the first vertex
+            v = s.pop()
+            # check if its been visited 
+            # check if it has not been visited
+            if v not in visited:
+                # mark it as visited
+                print(v)
+                visited.add(v)
+                # push all its neighbors on to the stack 
+                for neighbor in self.get_neighbors(v):
+                    s.push(neighbor)
+
 
     def dft_recursive(self, starting_vertex):
         """
@@ -48,8 +104,11 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
 
+    # check if the node has been visited
+    # if not...
+        # mark it as visited
+        # call dft_recursive on each neighbor
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -101,7 +160,8 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print(graph.vertices)
+    # print(graph.vertices[1])
+    # print(graph.get_neighbors(2))
 
     '''
     Valid BFT paths:
@@ -128,18 +188,18 @@ if __name__ == '__main__':
         1, 2, 4, 6, 3, 5, 7
     '''
     graph.dft(1)
-    graph.dft_recursive(1)
+    # graph.dft_recursive(1)
 
     '''
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    print(graph.bfs(1, 6))
+    # print(graph.bfs(1, 6))
 
     '''
     Valid DFS paths:
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    print(graph.dfs(1, 6))
-    print(graph.dfs_recursive(1, 6))
+    # print(graph.dfs(1, 6))
+    # print(graph.dfs_recursive(1, 6))
