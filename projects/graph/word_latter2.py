@@ -54,24 +54,24 @@ def get_neighbors(word):
                 results.append(joined_word)
     return results
 
-get_neighbors("cat")
+print(get_neighbors("dog"))
 
-def words_are_neighbors(w1, w2):
-    # return true of letters are one word apart
-    # otherwise return false
-    # convert the word into a list
-    letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+# def words_are_neighbors(w1, w2):
+#     # return true of letters are one word apart
+#     # otherwise return false
+#     # convert the word into a list
+#     letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
-    list_word = list(w1)
-    # go through each letter in the word
-    for i in range(len(list_word)):
-    # swap with each letter in the alphabet
-        for letter in letters:
-            # check if that equals given word
-            temp_word = list_word.copy()
-            if "".join(temp_word) == w2:
-                return True
-    return False 
+#     list_word = list(w1)
+#     # go through each letter in the word
+#     for i in range(len(list_word)):
+#     # swap with each letter in the alphabet
+#         for letter in letters:
+#             # check if that equals given word
+#             temp_word = list_word.copy()
+#             if "".join(temp_word) == w2:
+#                 return True
+#     return False 
 
 # alternative
 # def words_are_neighbors(w1, w2):
@@ -98,17 +98,17 @@ def words_are_neighbors(w1, w2):
 
 neighbors = {}
 # go through each word
-for word in words:
-    neighbors[word] = set()
-    # go through each potential neighbor
-    for potenitial_neighbor in words:
-        # add potential neighbor if they match  
-        if words_are_neighbors(word, potenitial_neighbor):
-            neighbors[word].add(potenitial_neighbor)
+# for word in words:
+#     neighbors[word] = set()
+#     # go through each potential neighbor
+#     for potenitial_neighbor in words:
+#         # add potential neighbor if they match  
+#         if words_are_neighbors(word, potenitial_neighbor):
+#             neighbors[word].add(potenitial_neighbor)
 
 
 
-def word_ladder(self, begin_word, end_word):
+def word_ladder(begin_word, end_word):
     # crate a queue
     q = Queue()
     # enqueue a path to the starting word
@@ -127,7 +127,11 @@ def word_ladder(self, begin_word, end_word):
         # check if it has been visited
         # if not, mark as visited
         if w not in visited:
+            visited.add(w)
             for neighbor in get_neighbors(w):
                 path_copy = path.copy()
                 path_copy.append(neighbor)
                 q.enqueue(path_copy)
+
+print(word_ladder("rat", "bar")) 
+print(word_ladder("sail", "boll")) 
